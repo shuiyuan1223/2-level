@@ -1,0 +1,43 @@
+# 大数据知识自证
+
+## 1. 大数据组件与框架
+
+**Hadoop 生态**：掌握 Hadoop 核心三件套——HDFS（分布式存储）+ YARN（资源调度）+ MapReduce（计算引擎）的协作关系；理解 Hadoop 生态作为大数据基础设施的定位。
+
+**Spark**：掌握 Spark 基于 RDD（弹性分布式数据集）的内存计算模型——相比 MapReduce 避免频繁磁盘 IO 实现数十倍性能提升；理解 Spark 的惰性求值（transformation 惰性记录 DAG，action 触发执行）和宽窄依赖对 shuffle 的影响；熟悉 Spark SQL（DataFrame/Dataset 结构化查询）、Spark MLlib（分布式机器学习库）、Spark Streaming（微批流处理）等子模块的应用场景。
+
+**Flink**：了解 Flink 作为真正流处理引擎（event-driven）与 Spark Streaming 微批模式的本质区别——Flink 逐事件处理实现更低延迟；熟悉 Flink 的 Exactly-Once 语义保证和 Checkpoint 容错机制。
+
+**Kafka**：掌握分布式消息队列的核心概念——Topic/Partition/Consumer Group；理解 Kafka 作为大数据 pipeline 中数据总线的角色——解耦生产者与消费者，支持高吞吐实时数据流转。
+
+## 2. 分布式文件系统
+
+**HDFS**：掌握 HDFS 的 Master-Slave 架构——NameNode（管理元数据，文件→Block 映射）+ DataNode（存储实际数据 Block）；理解三副本策略（同机架一份、跨机架两份）的容错与数据本地性设计；熟悉 HDFS 适合大文件顺序读写、不适合小文件和随机写的特性；掌握 HDFS 在大规模数据集存储中的实践应用。
+
+**对象存储**：了解云上对象存储（如 OBS/S3）相比 HDFS 的弹性扩展和存算分离优势，以及在现代大数据架构中逐步替代 HDFS 的趋势。
+
+## 3. 大规模计算框架
+
+**YARN**：掌握 YARN 的统一资源管理架构——ResourceManager（全局资源调度）+ NodeManager（单节点资源管理）+ ApplicationMaster（应用级资源协调）；理解 YARN 将资源管理与计算框架解耦，使 Spark/Flink/MapReduce 等多种计算引擎可共享集群资源。
+
+**MapReduce**：掌握 Map→Shuffle→Reduce 三阶段计算模型；理解 MapReduce 的局限——每个 Job 落盘一次，迭代算法（如机器学习训练）效率低下，这正是 Spark 内存计算取代 MapReduce 的核心动机。
+
+**分布式训练框架**：掌握 Horovod（基于 Ring All-Reduce 的数据并行训练）、DeepSpeed（ZeRO 优化器 + 流水线并行 + 混合精度，支持百亿级模型训练）、Megatron-LM（模型并行，张量并行切分）等框架在大模型训练中的应用与选型。
+
+## 4. 数据库管理与应用
+
+**关系型数据库**：掌握 SQL 核心操作（JOIN/GROUP BY/子查询/窗口函数）；理解 ACID 事务特性（原子性/一致性/隔离性/持久性）；熟悉索引原理（B+ Tree 索引适合范围查询，Hash 索引适合等值查询）和查询优化（执行计划分析、索引命中、避免全表扫描）；具备 MySQL/PostgreSQL 的工程实践经验。
+
+**数据仓库（Hive）**：掌握 Hive 将 SQL 查询转换为 MapReduce/Spark 任务执行的工作原理；理解 Hive 作为数据仓库工具在离线批量分析中的定位——适合大规模数据的 OLAP 查询，不适合低延迟事务处理；熟悉分区表（按日期/地域分区减少扫描量）和分桶表（Hash 分桶优化 JOIN）的性能优化策略；具备使用 HiveQL 进行数据查询与分析的实践经验。
+
+**NoSQL 数据库**：了解不同 NoSQL 类型的适用场景——键值存储（Redis, 缓存/实时计数）、文档存储（MongoDB, 灵活 schema）、列族存储（HBase, 海量数据随机读写）、图数据库（Neo4j, 关系查询）；理解 CAP 定理在分布式数据库设计中的权衡。
+
+**向量数据库**：掌握向量数据库（Faiss/Milvus/Pinecone）在 AI 应用中的核心作用——存储 embedding 向量并支持高效近似最近邻检索（ANN）；理解 HNSW（分层导航小世界图）和 IVF+PQ（倒排索引+乘积量化）两种主流索引算法的原理与适用场景。
+
+## 5. 数据处理与 ETL
+
+**数据采集**：了解 Flume（日志采集）、Sqoop（关系型数据库↔HDFS 数据迁移）等工具的应用场景。
+
+**数据处理**：掌握 ETL（Extract-Transform-Load）流程在数据仓库建设中的核心作用；熟悉数据清洗（缺失值处理、异常值检测、去重）、特征工程（数值归一化/标准化、类别编码 One-Hot/Label Encoding、特征交叉）在机器学习数据准备中的实践。
+
+**数据质量与治理**：理解数据质量维度（完整性、一致性、准确性、时效性）在大数据场景下的重要性；了解数据血缘追踪在排查数据问题中的价值。
